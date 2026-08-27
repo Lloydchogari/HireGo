@@ -43,7 +43,8 @@ img { max-width: 100%; display: block; }
 
 @media (min-width: 640px)  { :root { --container-max: 720px; } }
 @media (min-width: 1024px) { :root { --container-max: 980px; } }
-@media (min-width: 1440px) { :root { --container-max: 1200px; } }
+@media (min-width: 1440px) { :root { --container-max: 1400px; } }
+@media (min-width: 1800px) { :root { --container-max: 1600px; } }
 
 /* ---------- Buttons ---------- */
 
@@ -277,7 +278,7 @@ img { max-width: 100%; display: block; }
 }
 
 
-.truck-list { display: flex; flex-direction: column; padding: 8px 0 48px; }
+.truck-list { display: flex; flex-direction: column; padding: 8px 0 48px;}
 
 .truck-card {
   display: flex;
@@ -286,6 +287,7 @@ img { max-width: 100%; display: block; }
   background: white;
   border-bottom: 0.5px solid var(--color-black);
   padding: 14px 6px;
+
   
 }
 .truck-card:first-child { border-top: 0.2px solid rgb(164, 164, 164); }
@@ -394,6 +396,150 @@ img { max-width: 100%; display: block; }
 @media (min-width: 1440px) {
   .truck-list { grid-template-columns: repeat(4, 1fr); }
 }
+
+
+
+
+
+
+
+
+
+/* ---------- Truck detail hero (edge-to-edge) ---------- */
+
+.detail-hero {
+  position: relative;
+  width: 100%;
+  height: clamp(260px, 45vh, 420px);
+  overflow: hidden;
+  background: white;
+  padding-top: 30px;
+}
+.detail-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.detail-hero-noimage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-grey-400);
+  font-weight: 700;
+}
+
+.detail-back-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.detail-hero-topinfo {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.detail-hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 10px 14px;
+  max-width: 68%;
+}
+
+.detail-hero-topinfo .pill { flex-shrink: 0; }
+
+.owner-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.owner-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-black);
+  white-space: nowrap;
+}
+
+.verified-icon { color: var(--color-black); flex-shrink: 0; }
+
+/* ---------- Read more / expandable description ---------- */
+
+.read-more-btn {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-black);
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.btn-whatsapp {
+  background: #0ba343eb;
+  color: var(--color-white);
+  border-color: #0ba343eb;
+}
+.btn-whatsapp:hover { background: #1ebe5a; border-color: #1ebe5a; }
+
+/* ---------- Full-width stacked contact buttons ---------- */
+
+.contact-row {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin: 20px 0;
+}
+.contact-row .btn-block {
+  flex: 1;
+  width: auto;
+}
+
+.pill-red {
+  background: rgba(224, 52, 44, 0.1) !important;
+  border-color: rgba(224, 52, 44, 0.25) !important;
+  color: #1f1f1f !important;
+}
+
+.info-note {
+  background: rgba(47, 84, 235, 0.08);
+  border: 1px solid rgba(47, 84, 235, 0.18);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #33415c;
+  margin: 16px 0;
+}
+
+
+
+
+
+
 
 
 
