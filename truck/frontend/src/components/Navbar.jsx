@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import PasswordConfirmModal from './PasswordConfirmModal';
 
 export default function Navbar() {
   const { driver, logout } = useAuth();
   const navigate = useNavigate();
+  const [confirmingLogout, setConfirmingLogout] = useState(false);
+
+  const handleLogoutConfirmed = () => {
+    setConfirmingLogout(false);
+    logout();
+    navigate('/home');
+  };
 
   return (
     <header className="navbar">
@@ -19,10 +27,7 @@ export default function Navbar() {
               <Link to="/dashboard" className="btn btn-nav btn-nav-grey btn-sm">Dashboard</Link>
               <button
                 className="btn btn-nav btn-nav-white btn-sm"
-                onClick={() => {
-                  logout();
-                  navigate('/home');
-                }}
+                onClick={() => setConfirmingLogout(true)}
               >
                 Log out
               </button>
@@ -35,6 +40,15 @@ export default function Navbar() {
           )}
         </nav>
       </div>
+
+      <PasswordConfirmModal
+        open={confirmingLogout}
+        title="Confirm password"
+        message="Enter your password to log out."
+        confirmLabel="Log out"
+        onClose={() => setConfirmingLogout(false)}
+        onConfirmed={handleLogoutConfirmed}
+      />
     </header>
   );
 }

@@ -14,7 +14,6 @@ function publicDriver(driver) {
 }
 
 // POST /api/auth/register
-// A truck/lorry owner creates an account so they can post listings.
 async function register(req, res) {
   const { fullName, phone, whatsapp, email, password, city } = req.body;
 
@@ -92,4 +91,33 @@ async function me(req, res) {
   }
 }
 
-module.exports = { register, login, me };
+// POST /api/auth/verify-password (driver only)
+// Used to re-confirm identity before sensitive actions - logging out or
+// deleting a listing - without forcing a full re-login. Never confirms
+// anything the caller isn't already authorized for; it just re-checks
+// the password of the currently logged-in driver (from their token).
+async function verifyPassword(req, res) {
+  const { password } = req.body;
+
+  if (!password) {
+    return res.status(400).json({ error: 'Password is required.' });
+  }
+
+  try {
+    const result = await db.query('SELECT password_hash FROM drivers WHERE id = $1', [req.driverId]);
+    const driver = result.rows[0];
+    if (!driver) return res.status(404).json({ error: 'Driver not found.' });
+
+    const match = await bcrypt.compare(password, driver.password_hash);
+    if (!match) {
+      return res.status(401).json({ error: 'Incorrect password.' });
+    }
+
+    res.json({ valid: true });
+  } catch (err) {
+    console.error('Verify password error:', err);
+    res.status(500).json({ error: 'Could not verify your password. Please try again.' });
+  }
+}
+
+module.exports = { register, login, me, verifyPassword };

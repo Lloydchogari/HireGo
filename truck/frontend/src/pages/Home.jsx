@@ -4,6 +4,7 @@ import { api, TRUCK_TYPES } from '../api';
 import { useAuth } from '../context/AuthContext';
 import TruckCard from '../components/TruckCard';
 import SearchFilters from '../components/SearchFilters';
+import PasswordConfirmModal from '../components/PasswordConfirmModal';
 
 const CATEGORIES = [{ value: '', label: 'All' }, ...TRUCK_TYPES];
 
@@ -14,6 +15,7 @@ export default function Home() {
   const [trucks, setTrucks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [confirmingLogout, setConfirmingLogout] = useState(false);
 
   const fetchTrucks = useCallback((f) => {
     setLoading(true);
@@ -34,6 +36,12 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [filters, fetchTrucks]);
 
+  const handleLogoutConfirmed = () => {
+    setConfirmingLogout(false);
+    logout();
+    navigate('/home');
+  };
+
   return (
     <div className="container">
       <div className="landing-head">
@@ -46,10 +54,7 @@ export default function Home() {
               <Link to="/dashboard" className="btn btn-nav btn-nav-grey btn-sm">Dashboard</Link>
               <button
                 className="btn btn-nav btn-nav-white btn-sm"
-                onClick={() => {
-                  logout();
-                  navigate('/home');
-                }}
+                onClick={() => setConfirmingLogout(true)}
               >
                 Log out
               </button>
@@ -95,6 +100,15 @@ export default function Home() {
           ))}
         </div>
       )}
+
+      <PasswordConfirmModal
+        open={confirmingLogout}
+        title="Confirm password"
+        message="Enter your password to log out."
+        confirmLabel="Log out"
+        onClose={() => setConfirmingLogout(false)}
+        onConfirmed={handleLogoutConfirmed}
+      />
     </div>
   );
 }

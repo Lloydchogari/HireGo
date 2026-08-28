@@ -23,9 +23,6 @@ async function request(path, { method = 'GET', body, token } = {}) {
   return data;
 }
 
-// Separate from `request` above because file uploads need FormData, not JSON -
-// the browser sets the multipart Content-Type boundary itself, so we must NOT
-// set Content-Type manually here.
 async function uploadFile(path, file, token) {
   const formData = new FormData();
   formData.append('photo', file);
@@ -54,6 +51,7 @@ export const api = {
   register: (payload) => request('/auth/register', { method: 'POST', body: payload }),
   login: (payload) => request('/auth/login', { method: 'POST', body: payload }),
   me: (token) => request('/auth/me', { token }),
+  verifyPassword: (password, token) => request('/auth/verify-password', { method: 'POST', body: { password }, token }),
 
   // Trucks (public)
   listTrucks: (params = {}) => {
