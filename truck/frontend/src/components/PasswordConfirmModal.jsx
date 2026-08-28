@@ -3,10 +3,7 @@ import { Eye, EyeOff, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../api';
 
-// Reusable modal that re-checks the current driver's password before a
-// sensitive action (logging out, deleting a listing). Verification happens
-// server-side via /auth/verify-password - this component never decides on
-// its own whether a password is correct.
+
 export default function PasswordConfirmModal({
   open,
   title = 'Confirm password',

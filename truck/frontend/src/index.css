@@ -26,7 +26,7 @@ html, body, #root { height: 100%; }
 body {
   margin: 0;
   font-family: var(--font-body);
-  background: var(--color-white);
+  background: #E5E5E5;
   color: var(--color-black);
   -webkit-font-smoothing: antialiased;
 }
@@ -284,9 +284,9 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: stretch;
   gap: 30px;
-  background: white;
+  background: #E5E5E5;
   border-bottom: 0.5px solid var(--color-black);
-  padding: 14px 6px;
+  padding: 14px 8px;
 
   
 }
@@ -355,13 +355,18 @@ img { max-width: 100%; display: block; }
 }
 
 .hire-btn {
-  background: rgba(51, 0, 255, 0.842);
+  background: #000000;
   color: var(--color-white);
   font-size: 13px;
   font-weight: 600;
   padding: 5px 20px;
   border-radius: 9px;
 }
+
+.hire-btn:hover{
+  background: #33415c;
+}
+
 
 .owner-avatar {
   width: 32px;
@@ -844,7 +849,7 @@ img { max-width: 100%; display: block; }
 
 .navbar { 
   box-shadow: 4px 4px 8px rgba(0,0,0,0.05);
-  background: var(--color-white);
+  background: #14213D;
    position: sticky; top: 0; 
    z-index: 20; 
   }
@@ -870,7 +875,7 @@ img { max-width: 100%; display: block; }
   font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
 .nav-links { display: flex; align-items: center; gap: 8px; }
@@ -917,7 +922,7 @@ img { max-width: 100%; display: block; }
 }
 .btn-nav-grey:hover { background: var(--color-grey-400);  box-shadow: 0 3px 14px rgba(16, 0, 239, 0.4); }
 .btn-nav-white {
-  background: rgba(51, 0, 255, 0.842);
+  background: #FCA311;
   color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
@@ -1028,9 +1033,6 @@ footer.site-footer {
 
 
 /* delete modal */
-
-
-
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -1090,7 +1092,7 @@ footer.site-footer {
 
 .modal-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   margin-top: 4px;
 }
 .modal-actions .btn { flex: 1; }
