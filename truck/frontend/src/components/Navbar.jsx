@@ -6,6 +6,11 @@ import PasswordConfirmModal from './PasswordConfirmModal';
 
 const SCROLL_REVEAL_THRESHOLD = 80;
 
+const PAGE_TITLES = {
+  '/driver/login': 'Login',
+  '/driver/signup': 'Sign Up',
+};
+
 export default function Navbar() {
   const { driver, logout } = useAuth();
   const navigate = useNavigate();
@@ -14,6 +19,8 @@ export default function Navbar() {
   const [showSearchIcon, setShowSearchIcon] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+
+  const pageTitle = PAGE_TITLES[location.pathname] || null;
 
   // Show the search icon once the person has scrolled down past the
   // threshold (i.e. they're deeper into the list), hide it again once
@@ -48,10 +55,12 @@ export default function Navbar() {
 
   return (
     <header className="navbar">
-      <div className="navbar-inner">
+      <div className={`navbar-inner${pageTitle ? ' navbar-inner--titled' : ''}`}>
         <Link to="/home" className="brand">
           <span className="brand-name">Hirego</span>
         </Link>
+
+        {pageTitle ? <div className="navbar-page-title">{pageTitle}</div> : null}
 
         <div className="navbar-right">
           {showSearchBar ? (

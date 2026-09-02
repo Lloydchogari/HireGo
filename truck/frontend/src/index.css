@@ -204,6 +204,25 @@ img { max-width: 100%; display: block; }
   text-align: left;
 }
 
+
+.home-hero-blue {
+  background: #14213D;
+  padding-bottom: 24px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.home-hero-blue .eyebrow {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.home-hero-blue .landing-head h1 {
+  color: var(--color-white);
+}
+
+
+
+
 /* Search bar with filter icon at the right edge */
 .search-row { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
 .search-box {
@@ -271,10 +290,11 @@ img { max-width: 100%; display: block; }
   border-bottom: 2px solid transparent;
   flex-shrink: 0;
 }
+
 .category-chip.active {
   color: var(--color-black);
   font-weight: 700;
-  border-bottom-color: var(--color-black);
+  border-bottom-color: #F97316;
 }
 
 
@@ -561,7 +581,7 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, rgba(128, 128, 128, 0.868) 0%, rgba(128, 128, 128, 0.858) 14%, #ffffff 58%);
+  background: #14213D;
 }
 
 .login-error {
@@ -704,7 +724,7 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, rgba(128, 128, 128, 0.868) 0%, rgba(128, 128, 128, 0.858) 14%, #ffffff 58%);
+  background: #14213D;
 }
 
 .signup-hero {
@@ -995,6 +1015,45 @@ img { max-width: 100%; display: block; }
 @keyframes navSearchBarSlideIn {
   from { opacity: 0; transform: translateX(16px) scaleX(0.85); }
   to { opacity: 1; transform: translateX(0) scaleX(1); }
+}
+
+
+
+
+
+
+
+
+.navbar-inner { position: relative; }
+
+.navbar-page-title {
+  display: none;
+}
+
+@media (max-width: 719px) {
+  .navbar-page-title {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    pointer-events: none;
+  }
+
+  .navbar-inner--titled .brand {
+    visibility: hidden;
+  }
+
+  /* The on-page hero title is now redundant since the navbar shows it */
+  .login-hero-title,
+  .signup-hero-title {
+    display: none;
+  }
 }
 
 
