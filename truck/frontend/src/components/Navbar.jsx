@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import PasswordConfirmModal from './PasswordConfirmModal';
 
 const SCROLL_REVEAL_THRESHOLD = 80;
+const SCROLLED_THRESHOLD = 10;
 
 const PAGE_TITLES = {
   '/driver/login': 'Login',
@@ -19,15 +20,18 @@ export default function Navbar() {
   const [showSearchIcon, setShowSearchIcon] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [scrolled, setScrolled] = useState(false);
 
   const pageTitle = PAGE_TITLES[location.pathname] || null;
 
-  // Show the search icon once the person has scrolled down past the
-  // threshold (i.e. they're deeper into the list), hide it again once
-  // they're back near the top of the page.
+  // One scroll listener drives two things: revealing the search icon once
+  // scrolled deep enough, and shrinking the navbar as soon as any scroll
+  // happens at all.
   useEffect(() => {
     function handleScroll() {
-      setShowSearchIcon(window.scrollY > SCROLL_REVEAL_THRESHOLD);
+      const y = window.scrollY;
+      setShowSearchIcon(y > SCROLL_REVEAL_THRESHOLD);
+      setScrolled(y > SCROLLED_THRESHOLD);
     }
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -54,7 +58,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="navbar">
+    <header className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className={`navbar-inner${pageTitle ? ' navbar-inner--titled' : ''}`}>
         <Link to="/home" className="brand">
           <span className="brand-name">Hirego</span>

@@ -42,9 +42,10 @@ img { max-width: 100%; display: block; }
 }
 
 @media (min-width: 640px)  { :root { --container-max: 720px; } }
-@media (min-width: 1024px) { :root { --container-max: 980px; } }
-@media (min-width: 1440px) { :root { --container-max: 1400px; } }
-@media (min-width: 1800px) { :root { --container-max: 1600px; } }
+@media (min-width: 1024px) { :root { --container-max: 1100px; } }
+@media (min-width: 1280px) { :root { --container-max: 1200px; } }
+@media (min-width: 1440px) { :root { --container-max: 1320px; } }
+@media (min-width: 1800px) { :root { --container-max: 1520px; } }
 
 /* ---------- Buttons ---------- */
 
@@ -207,7 +208,7 @@ img { max-width: 100%; display: block; }
 
 .home-hero-blue {
   background: #14213D;
-  padding-bottom: 24px;
+  padding-bottom: 35px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
@@ -257,7 +258,7 @@ img { max-width: 100%; display: block; }
   background: var(--color-black);
   color: var(--color-white);
 }
-.filter-toggle.active { background: var(--color-grey-800); }
+.filter-toggle.active { background: var(--color-grey-800); color: orange; }
 
 .filter-panel {
   margin-top: 12px;
@@ -291,6 +292,10 @@ img { max-width: 100%; display: block; }
   flex-shrink: 0;
 }
 
+.category-chip:hover {
+  color: #c7a174;
+}
+
 .category-chip.active {
   color: var(--color-black);
   font-weight: 700;
@@ -298,7 +303,9 @@ img { max-width: 100%; display: block; }
 }
 
 
-.truck-list { display: flex; flex-direction: column; padding: 8px 0 48px;}
+/* truck cards */
+
+.truck-list { display: flex; flex-direction: column; padding: 8px 0 48px; }
 
 .truck-card {
   display: flex;
@@ -321,8 +328,9 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   color: var(--color-grey-400);
   position: relative;
+  
 }
-.truck-card-photo img { width: 100%; height: 100%; object-fit: cover; }
+.truck-card-photo img { width: 100%; height: 100%; object-fit: var(--container-max); }
 
 .badge-boosted {
   position: absolute;
@@ -380,11 +388,7 @@ img { max-width: 100%; display: block; }
   padding: 5px 20px;
   border-radius: 9px;
 }
-
-.hire-btn:hover{
-  background: #33415c;
-}
-
+.hire-btn:hover { background: #33415c; }
 
 .owner-avatar {
   width: 32px;
@@ -402,7 +406,7 @@ img { max-width: 100%; display: block; }
 }
 .owner-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-
+/* ===== Desktop / large screens only - everything below this line ===== */
 @media (min-width: 720px) {
   .truck-list {
     width: 100%;
@@ -410,8 +414,47 @@ img { max-width: 100%; display: block; }
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
-  .truck-card {padding-right:15px; border:none; border-radius: 5px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);}
-  .truck-card:first-child {padding-right:15px; border: none; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);}
+
+  .truck-card {
+    min-width: 0;
+    gap: 0;
+    padding: 0;
+    background: #ffffff53;
+    border-bottom: none;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .truck-card:first-child { border-top: none; }
+  .truck-card:hover {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+  }
+
+  .truck-card-photo {
+    width: 58%;
+    max-width: 320px;
+    min-width: 160px;
+    min-height: 200px;
+    border-radius: 0;
+    align-self: stretch;
+}
+
+  .truck-card-body {
+    min-width: 0;
+    padding: 18px 20px;
+    gap: 8px;
+  }
+
+  .truck-card-title { font-size: 18px; }
+
+  .badge-boosted { background: #F97316; }
+  .hire-btn { background: #F97316; }
+  .hire-btn:hover { background: #d9630f; }
+
+  .owner-avatar {
+    box-shadow: 0 0 0 2px var(--color-white), 0 0 0 3px rgba(0, 0, 0, 0.06);
+  }
 }
 @media (min-width: 1024px) {
   .truck-list { grid-template-columns: repeat(3, 1fr); }
@@ -419,10 +462,6 @@ img { max-width: 100%; display: block; }
 @media (min-width: 1440px) {
   .truck-list { grid-template-columns: repeat(4, 1fr); }
 }
-
-
-
-
 
 
 
@@ -870,10 +909,12 @@ img { max-width: 100%; display: block; }
 
 .navbar {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  background: var(--color-white);
+  background: #14213D;
   position: sticky;
   top: 0;
   z-index: 20;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
 }
 
 .navbar-inner {
@@ -881,9 +922,10 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: max(12px, env(safe-area-inset-top)) 16px 12px;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 16px;
   max-width: var(--container-max);
   margin: 0 auto;
+  transition: padding 0.2s ease;
 }
 
 .brand-name {
@@ -923,13 +965,22 @@ img { max-width: 100%; display: block; }
 }
 
 
+.navbar--scrolled {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
 
-.navbar { 
+.navbar--scrolled .navbar-inner {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 8px);
+  padding-bottom: 8px;
+}
+
+
+/* .navbar { 
   box-shadow: 4px 4px 8px rgba(0,0,0,0.05);
   background: #14213D;
-  }
+  } */
 
-  .btn-nav {
+.btn-nav {
   border: none;
   border-radius: 4px;
 }
@@ -967,12 +1018,51 @@ img { max-width: 100%; display: block; }
   .navbar-icons-mobile {
     display: none;
   }
+
+  .navbar-inner {
+    padding: 25px 10px 35px 10px;
+  }
   .nav-links-desktop {
     display: flex;
     align-items: center;
     gap: 8px;
   }
+  .navbar--scrolled .navbar-inner {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
+    padding-bottom: 12px;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+.navbar {
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1016,11 +1106,6 @@ img { max-width: 100%; display: block; }
   from { opacity: 0; transform: translateX(16px) scaleX(0.85); }
   to { opacity: 1; transform: translateX(0) scaleX(1); }
 }
-
-
-
-
-
 
 
 
